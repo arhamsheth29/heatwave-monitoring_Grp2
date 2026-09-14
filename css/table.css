@@ -1,0 +1,60 @@
+body {
+    background: linear-gradient(to bottom, #fff3e0, #ffe0b2);
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    text-align: center;
+    color: #d84315;
+}
+
+table {
+    width: 80%;
+    margin: 25px auto;
+    border-collapse: collapse;
+    text-align: center;
+    background-color: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+caption {
+    font-size: 20px;
+    font-weight: bold;
+    color: #bf360c;
+    margin-bottom: 12px;
+}
+
+th {
+    background-color: #e64a19;
+    color: white;
+    padding: 12px;
+}
+
+td {
+    padding: 10px;
+    border: 1px solid #d7ccc8;
+}
+
+tr:nth-child(even) {
+    background-color: #fff3e0;
+}
+
+/* Severity Level Colors */
+
+td:last-child {
+    font-weight: bold;
+}
+
+td:last-child:has(+ *) {
+    color: black;
+}
+
+/* Severe */
+tr:has(td:last-child) td:last-child {
+    color: #333;
+}
+
+/* Individual severity colors */
+tr:has(td:last-child:contains("Severe")) td:last-child {
+    color: red;
+}

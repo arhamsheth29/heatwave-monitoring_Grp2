@@ -1,0 +1,50 @@
+
+<html>
+<head>
+    <title>Heatwave Advisory Subscription Form</title>
+    <link rel="stylesheet" href="form.css">
+</head>
+<body>
+
+    <h2 align="center">Heatwave Advisory Subscription Form</h2>
+
+    <form>
+
+        <label>Citizen Name:</label><br>
+        <input type="text" name="name" required><br><br>
+
+        <label>Email Address:</label><br>
+        <input type="email" name="email" required><br><br>
+
+        <label>Mobile Number:</label><br>
+        <input type="tel" name="mobile" required><br><br>
+
+       <label>Select Region:</label><br>
+       <select name="region" required>
+       <option value="">--Select Region--</option>
+       <option>North India</option>
+       <option>South India</option>
+       <option>East India</option>
+       <option>West India</option>
+       <option>Central India</option>
+       
+       </select><br><br>
+
+        <label>Preferred Alert Language:</label><br>
+        <input type="radio" name="language" value="English"> English<br>
+        <input type="radio" name="language" value="Hindi"> Hindi<br>
+        <input type="radio" name="language" value="Marathi"> Marathi<br><br>
+
+        <label>Alert Types to Receive:</label><br>
+        <input type="checkbox" name="alert" value="Heatwave Warning"> Heatwave Warning<br>
+        <input type="checkbox" name="alert" value="Temperature Updates"> Temperature Updates<br>
+        <input type="checkbox" name="alert" value="Health Advisory"> Health Advisory<br>
+        <input type="checkbox" name="alert" value="Emergency Alerts"> Emergency Alerts<br><br>
+
+        <input type="submit" value="Submit">
+        <input type="reset" value="Reset">
+
+    </form>
+
+</body>
+</html>

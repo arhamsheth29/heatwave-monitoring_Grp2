@@ -1,0 +1,35 @@
+body {
+    background: linear-gradient(to bottom, #fff3e0, #ffe0b2);
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    text-align: center;
+    color: #d84315;
+}
+
+h2 {
+    color: #bf360c;
+}
+
+hr {
+    border: 1px solid #e64a19;
+}
+
+ul,
+ol {
+    background-color: white;
+    border: 2px solid #e64a19;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    padding: 20px 35px;
+    border-radius: 10px;
+}
+
+li {
+    margin: 10px 0;
+    padding: 5px;
+}
+
+li:hover {
+    color: #d84315;
+}

@@ -1,0 +1,29 @@
+body {
+    background: linear-gradient(to bottom, #fff3e0, #ffe0b2);
+    font-family: Arial, sans-serif;
+}
+
+.offer-box {
+    background-color: #ffe0b2;
+    color: #e65100;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    padding: 20px;
+    margin: 20px auto;
+    width: 70%;
+    border: 3px solid #e64a19;
+    border-radius: 10px;
+    box-shadow: 0 0 15px #ff9800;
+    animation: glow 1.5s infinite alternate;
+}
+
+@keyframes glow {
+    from {
+        box-shadow: 0 0 5px #ff9800;
+    }
+
+    to {
+        box-shadow: 0 0 25px #e65100;
+    }
+}
