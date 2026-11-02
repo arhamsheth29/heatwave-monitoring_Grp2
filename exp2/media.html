@@ -1,0 +1,98 @@
+<html>
+<head>
+<title>Media Awareness Page</title>
+<link rel="stylesheet" href="style.css">
+<style>
+body {
+margin: 0;
+}
+header {
+background-color: #b30000;
+color: white;
+padding: 20px;
+text-align: center;
+}
+.layout {
+display: flex;
+min-height: 70vh;
+}
+aside {
+width: 220px;
+padding: 20px;
+background-color: #fdf6f0;
+box-sizing: border-box;
+}
+aside ul {
+list-style-type: none;
+padding: 0;
+}
+aside ul li {
+padding: 8px 0;
+}
+aside ul li a {
+text-decoration: none;
+color: #b30000;
+font-weight: bold;
+}
+aside ul li a:hover {
+text-decoration: underline;
+}
+main {
+flex: 1;
+padding: 20px;
+box-sizing: border-box;
+}
+footer {
+background-color: #333;
+color: white;
+text-align: center;
+padding: 10px 0;
+}
+</style>
+</head>
+<body>
+
+<header>
+<h1>Media and Awareness</h1>
+</header>
+
+<div class="layout">
+
+<aside>
+<h3>Quick Links</h3>
+<ul>
+<li><a href="#video-section">Awareness Video</a></li>
+<li><a href="#audio-section">Audio Advisory</a></li>
+<li><a href="#map-section">Weather Map</a></li>
+</ul>
+</aside>
+
+<main>
+<h2 id="video-section" style="color:red;">Awareness Video</h2>
+<video width="400" controls>
+<source src="heatwave.mp4" type="video/mp4">
+</video>
+<hr>
+
+<h2 id="audio-section" style="color:red;">Audio Advisory</h2>
+<audio controls>
+<source src="wind.mp3" type="audio/mpeg">
+</audio>
+<hr>
+
+<h2 id="map-section" style="color:red;">Weather Map</h2>
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d241317.75590743867!2d72.71354284471423!3d19.081758704983443!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c6306644edc1%3A0x5da4ed8f8d648c69!2sMumbai%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1785236975984!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+
+<noscript>
+Your browser has JavaScript disabled. Please enable it to view full content
+</noscript>
+</main>
+
+</div>
+
+<footer>
+<p>India Meteorological Department ; Heatwave Intelligence System</p>
+</footer>
+
+</body>
+</html>

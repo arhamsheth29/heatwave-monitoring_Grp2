@@ -1,0 +1,97 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+ 
+    <title>Forecast Summary</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+	table{
+	border-collapse: collapse;
+	width: 80%;
+	margin: 20px auto;
+	text-align: center;}
+	
+	caption{
+	font-weight:bold;
+	font-size: 18px;
+	margin-bottom:10px;
+	}
+	
+	thead th{
+	background-color: #b30000;
+	color:white;
+	}
+	
+	tbody tr:noth-child(even){
+	background-color: #ffe6e6;}
+	
+	tfoot td{
+	font-weight:bolc;
+	background-color: #f2f2f2;}
+	</style>
+</head>
+<body>
+
+    <h1>Forecast Summary Page</h1>
+
+    <table border="1" cellpadding="8" cellspacing="0">
+        <caption>
+            Region-wise Temperature & Forecast Results
+        </caption>
+
+        <thead>
+            <tr>
+                <th rowspan="2">Region</th>
+                <th rowspan="2">Station</th>
+                <th colspan="2">Forecast</th>
+            </tr>
+            <tr>
+                <th>Max Temperature (°C)</th>
+                <th>Severity Level</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>North</td>
+                <td>Delhi</td>
+                <td>44</td>
+                <td>Severe</td>
+            </tr>
+            <tr>
+                <td>West</td>
+                <td>Mumbai</td>
+                <td>36</td>
+                <td>Moderate</td>
+            </tr>
+            <tr>
+                <td>South</td>
+                <td>Chennai</td>
+                <td>41</td>
+                <td>High</td>
+            </tr>
+            <tr>
+                <td>East</td>
+                <td>Kolkata</td>
+                <td>39</td>
+                <td>High</td>
+            </tr>
+            <tr>
+                <td>Central</td>
+                <td>Nagpur</td>
+                <td>43</td>
+                <td>Severe</td>
+            </tr>
+        </tbody>
+
+        <tfoot>
+            <tr>
+                <td colspan="4">
+                    Total Regions Covered: 5
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+
+</body>
+</html>
