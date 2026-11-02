@@ -1,0 +1,100 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Climate Monitoring Object</title>
+    <style>
+        body { 
+		font-family: Arial; 
+		background-color: #fdf6f0; 
+		padding: 20px; 
+		}
+        h1 { 
+		color: #b30000; 
+		text-align: center;
+		}
+        .box { 
+		max-width: 500px; 
+		margin: auto;
+		background: #fff;
+		border: 2px solid #b30000;
+        border-radius: 10px; 
+		padding: 15px 25px; 
+		box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+		}
+    </style>
+</head>
+<body>
+    <h1>Climate Monitoring Object</h1>
+    <div class="box" id="output"></div>
+
+    <script type="text/javascript">
+        var climateData = {
+            location: "Mumbai",
+            city: "Mumbai",
+            temperature: 39,
+            humidity: 65,
+            windSpeed: 12,
+            forecastTemperature: 41,
+            threshold: 37,
+            riskLevel: "Not Determined",
+            alertStatus: "Inactive",
+            monitoringDate: "18/10/2026",
+
+            print: function (text) {
+                document.getElementById("output").innerHTML += "<p>" + text + "</p>";
+                console.log(text.replace(/<[^>]*>/g, ""));
+            },
+
+            displayData: function () {
+                this.print("<b>Location:</b> " + this.location);
+                this.print("<b>City:</b> " + this.city);
+                this.print("<b>Temperature:</b> " + this.temperature + "&deg;C");
+                this.print("<b>Humidity:</b> " + this.humidity + "%");
+                this.print("<b>Wind Speed:</b> " + this.windSpeed + " km/h");
+                this.print("<b>Forecast Temperature:</b> " + this.forecastTemperature + "&deg;C");
+                this.print("<b>Risk Level:</b> " + this.riskLevel);
+                this.print("<b>Alert Status:</b> " + this.alertStatus);
+                this.print("<b>Monitoring Date:</b> " + this.monitoringDate);
+            },
+
+            calculateDifference: function () {
+                return this.temperature - this.threshold;
+            },
+
+            determineRisk: function () {
+                if (this.temperature >= 40) {
+                    this.riskLevel = "Severe";
+                } else if (this.temperature >= 38 && this.humidity >= 60) {
+                    this.riskLevel = "High";
+                } else if (this.temperature >= 35) {
+                    this.riskLevel = "Moderate";
+                } else {
+                    this.riskLevel = "Normal";
+                }
+                return this.riskLevel;
+            },
+
+            showWarning: function () {
+                if (this.forecastTemperature >= 40) {
+                    this.print("<b>Early Warning:</b> Forecast " + this.forecastTemperature + "&deg;C - Prepare for Heatwave");
+                } else if (this.riskLevel == "High" || this.riskLevel == "Severe") {
+                    this.print("<b>Early Warning:</b> Heatwave warning should be issued");
+                } else {
+                    this.print("<b>Early Warning:</b> No warning required. Continue monitoring");
+                }
+            },
+
+            updateAlertStatus: function (newStatus) {
+                this.alertStatus = newStatus;
+                this.print("<i>Alert status updated to: " + this.alertStatus + "</i>");
+            }
+        };
+
+        climateData.determineRisk();
+        climateData.displayData();
+        climateData.print("<b>Temperature Difference from Threshold:</b> " + climateData.calculateDifference() + "&deg;C");
+        climateData.showWarning();
+        climateData.updateAlertStatus("Active");
+    </script>
+</body>
+</html>

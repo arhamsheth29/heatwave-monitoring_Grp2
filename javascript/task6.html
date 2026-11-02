@@ -1,0 +1,278 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Climate Intelligence Registration</title>
+    <style>
+        body { 
+		font-family: Arial; 
+		background: #fdf6f0;
+		padding: 20px;
+		margin: 0; 
+		}
+        h1 { 
+		color: #b30000; 
+		text-align: center;
+		font-size: 22px;
+		}
+        fieldset { 
+		max-width: 520px;
+		margin: 15px auto; 
+		background: #fff;
+		border: 2px solid #b30000;
+        border-radius: 10px; 
+		padding: 15px 20px;
+		box-shadow: 2px 2px 10px rgba(0,0,0,0.15);
+		}
+        legend {
+		font-weight: bold;
+		color: #b30000; 
+		padding: 0 10px; 
+		}
+        label { 
+		display: block;
+		margin-top: 10px;
+		}
+        input, select { 
+		width: 100%; 
+		padding: 8px; 
+		margin-top: 4px;
+		border: 1px solid #ccc;
+        border-radius: 6px; 
+		box-sizing: border-box; 
+		}
+        input:focus, select:focus { 
+		border-color: #b30000;
+		outline: none;
+		background: #fff5f5; 
+		}
+        .invalid { 
+		border: 2px solid #b30000 !important;
+		background: #ffe6e6; 
+		}
+        .error { 
+		color: #b30000;
+		font-size: 13px;
+		display: block;
+		min-height: 4px;
+		}
+        .btn-row { 
+		max-width: 520px; margin: auto;
+		}
+        button {
+		padding: 10px 20px; 
+		border: none; 
+		border-radius: 6px; 
+		cursor: pointer; 
+		font-size: 15px;
+		margin-right: 8px;
+		}
+        button[type="submit"] { 
+		background: #b30000; 
+		color: #fff; 
+		}
+        button[type="submit"]:hover { 
+		background: #ff4d4d;
+		}
+        button[type="reset"] {
+		background: #ccc; 
+		color: #333; 
+		}
+        button[type="reset"]:hover { 
+		background: #aaa;
+		}
+        #successBox { 
+		display: none; 
+		max-width: 520px; 
+		margin: 20px auto; 
+		padding: 15px;
+		text-align: center;
+       background: #e6ffe6;
+	   border: 2px solid green; 
+	   border-radius: 10px; 
+	   color: green; }
+    </style>
+</head>
+<body>
+    <h1>Climate Intelligence for Heatwave Monitoring, Prediction and Early Warning</h1>
+
+    <form id="climateForm" novalidate>
+        <fieldset>
+            <legend>User Details</legend>
+
+            <label for="userName">User Name</label>
+            <input type="text" id="userName" name="userName">
+            <span class="error" id="err-userName"></span>
+
+            <label for="mobile">Mobile Number</label>
+            <input type="tel" id="mobile" name="mobile">
+            <span class="error" id="err-mobile"></span>
+
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email">
+            <span class="error" id="err-email"></span>
+
+            <label for="userId">User ID (e.g. CLM-1234)</label>
+            <input type="text" id="userId" name="userId">
+            <span class="error" id="err-userId"></span>
+
+            <label for="ageGroup">Age Group</label>
+            <select id="ageGroup" name="ageGroup">
+                <option value="">Select</option>
+                <option>Below 18</option>
+                <option>18 - 30</option>
+                <option>31 - 45</option>
+                <option>46 - 60</option>
+                <option>Above 60</option>
+            </select>
+            <span class="error" id="err-ageGroup"></span>
+
+            <label for="category">User Category</label>
+            <select id="category" name="category">
+                <option value="">Select</option>
+                <option>General Public</option>
+                <option>Senior Citizen</option>
+                <option>Student</option>
+                <option>Outdoor Worker</option>
+                <option>Healthcare Worker</option>
+                <option>Government/Disaster Management</option>
+                <option>Other</option>
+            </select>
+            <span class="error" id="err-category"></span>
+        </fieldset>
+
+        <fieldset>
+            <legend>Location and Alert Preferences</legend>
+
+            <label for="city">Location/City</label>
+            <input type="text" id="city" name="city">
+            <span class="error" id="err-city"></span>
+
+            <label for="pin">PIN/Postal Code</label>
+            <input type="text" id="pin" name="pin">
+            <span class="error" id="err-pin"></span>
+
+            <label for="channel">Preferred Alert Channel</label>
+            <select id="channel" name="channel">
+                <option value="">Select</option>
+                <option>SMS</option>
+                <option>Email</option>
+                <option>WhatsApp</option>
+                <option>Voice Call</option>
+            </select>
+            <span class="error" id="err-channel"></span>
+
+            <label for="regDate">Registration Date</label>
+            <input type="date" id="regDate" name="regDate">
+            <span class="error" id="err-regDate"></span>
+        </fieldset>
+
+        <div class="btn-row">
+            <button type="submit">Register</button>
+            <button type="reset" id="resetBtn">Reset</button>
+        </div>
+    </form>
+
+    <div id="successBox">
+        <h2>Registration Successful!</h2>
+        <p>You are registered for Climate Intelligence<br>Heatwave Monitoring and Early-Warning Alerts.</p>
+    </div>
+
+    <script type="text/javascript">
+       
+        function showError(fieldId, message) {
+            document.getElementById("err-" + fieldId).innerHTML = message;
+            document.getElementById(fieldId).classList.add("invalid");
+            return false;
+        }
+
+        function clearError(fieldId) {
+            document.getElementById("err-" + fieldId).innerHTML = "";
+            document.getElementById(fieldId).classList.remove("invalid");
+            return true;
+        }
+
+        function getValue(fieldId) {
+            return document.getElementById(fieldId).value.trim();
+        }
+
+        function validatePattern(fieldId, regex, emptyMsg, invalidMsg) {
+            var value = getValue(fieldId);
+            if (value === "") { return showError(fieldId, emptyMsg); }
+            if (!regex.test(value)) { return showError(fieldId, invalidMsg); }
+            return clearError(fieldId);
+        }
+
+        function validateSelect(fieldId, msg) {
+            if (getValue(fieldId) === "") { return showError(fieldId, msg); }
+            return clearError(fieldId);
+        }
+
+        function validateUserName() {
+            return validatePattern("userName", /^[A-Za-z ]+$/, "User name is required.", "Name can contain only alphabets and spaces.");
+        }
+        function validateMobile() {
+            return validatePattern("mobile", /^[6-9][0-9]{9}$/, "Mobile number is required.", "Mobile number must be exactly 10 digits.");
+        }
+        function validateEmail() {
+            return validatePattern("email", /^[^\s@]+@[^\s@]+\.[^\s@]+$/, "Email is required.", "Enter a valid email address.");
+        }
+        function validateUserId() {
+            return validatePattern("userId", /^CLM-[0-9]{4}$/, "User ID is required.", "User ID must follow the format CLM-1234.");
+        }
+        function validateAgeGroup() {
+            return validateSelect("ageGroup", "Please select an age group.");
+        }
+        function validateCategory() {
+            return validateSelect("category", "Please select a user category.");
+        }
+        function validateCity() {
+            var city = getValue("city");
+            if (city === "") { return showError("city", "Location/City must not be empty."); }
+            return clearError("city");
+        }
+        function validatePin() {
+            return validatePattern("pin", /^[0-9]{6}$/, "PIN/Postal code is required.", "PIN code must be exactly 6 digits.");
+        }
+        function validateChannel() {
+            return validateSelect("channel", "Please select a preferred alert channel.");
+        }
+        function validateDate() {
+            var value = getValue("regDate");
+            if (value === "") { return showError("regDate", "Registration date is required."); }
+
+            var entered = new Date(value);
+            var today = new Date();
+            today.setHours(0, 0, 0, 0);
+            entered.setHours(0, 0, 0, 0);
+
+            if (entered > today) { return showError("regDate", "Registration date cannot be a future date."); }
+            return clearError("regDate");
+        }
+
+        document.getElementById("climateForm").onsubmit = function (e) {
+            e.preventDefault();   
+
+            var results = [
+                validateUserName(), validateMobile(), validateEmail(), validateUserId(),
+                validateAgeGroup(), validateCategory(), validateCity(), validatePin(),
+                validateChannel(), validateDate()
+            ];
+            var allValid = results.every(function (r) { return r === true; });
+
+            document.getElementById("successBox").style.display = allValid ? "block" : "none";
+            if (allValid) {
+                document.getElementById("successBox").scrollIntoView();
+            }
+        };
+
+        document.getElementById("resetBtn").onclick = function () {
+            var errors = document.querySelectorAll(".error");
+            for (var i = 0; i < errors.length; i++) { errors[i].innerHTML = ""; }
+            var fields = document.querySelectorAll(".invalid");
+            for (var j = 0; j < fields.length; j++) { fields[j].classList.remove("invalid"); }
+            document.getElementById("successBox").style.display = "none";
+        };
+    </script>
+</body>
+</html>

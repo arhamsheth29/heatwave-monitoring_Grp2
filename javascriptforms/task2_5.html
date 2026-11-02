@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+    <meta charset ="UTF-8">
+    <title>Heatwave Monitoring Form - Validation</title>
+	<style>
+	
+	body{
+	font-family: Arial;
+	background: #f4f6f8;
+	padding: 20px;
+	}
+	
+	fieldset{
+	max-width: 500px;
+	margin:auto;
+	background: #fff;
+	border-radius: 8px;
+	padding: 20px;
+	}
+	
+	legend{
+	font-weight: bold;
+	font-size: 1.2em;
+	color: #c0392b;
+	}
+	
+	label{
+	display: block;
+	margin-top = 10px;
+	}
+	
+	input,select{
+	width:100%;
+	padding:6px;
+	margin-top:4px;
+	box-sizing:border-box;
+	}
+	
+	button{
+	margin-top: 18px;
+	padding: 10px 20px;
+	background: #c0392b;
+	color: #fff;
+	border: none;
+	border-radius: 4px;
+	cursor:pointer;
+	}
+	 #successMsg{ 
+	 color:green; 
+	 font-weight:bold; 
+	 text-align:center;
+	 margin-top:15px; 
+	 display:none; }
+	
+	</style>
+</head>
+<body>
+
+    <form id="heatwaveForm" novalidate>
+     <fieldset>
+	 <legend>Heatwave Monitoring Form</legend>
+        <label for ="observerName">Observer Name</label>
+        <input type="text" id="observerName" name="observerName" required>
+        <span class="error" id="err-observerName"></span>
+		
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required>
+		<span class="error" id="err-email"></span>
+
+        <label for ="mobile">Mobile Number</label>
+        <input type="tel" id="mobile" name="mobile" required>
+		<span class="error" id="err-mobile"></span>
+  
+        <label for ="stationId">AWS Station ID</label>
+        <input type="text" id="stationId" name="stationId" required>
+		<span class="error" id="err-stationId"></span>
+		
+        <label for ="location">Location</label>
+        <input type="text" id="location" name="location" required>
+		<span class="error" id="err-location"></span>
+       
+        <label for ="obsDate">Observation Date</label>
+        <input type="date" id="obsDate" name="obsDate" required>
+		<span class="error" id="err-obsDate"></span>
+		
+		<label for ="maxTemp">Maximum Temperature</label>
+        <input type="number" id="maxTemp" name="maxTemp" required>
+		<span class="error" id="err-maxTemp"></span>
+		
+		<label for ="humidity">Humidity</label>
+        <input type="number" id="humidity" name="humidity" required>
+		<span class="error" id="err-humidity"></span>
+		
+        <label for="alertLevel">Heatwave Alert Level</label>
+		<select id = "alertLevel" name = "alertLevel" required>
+		<option value="">Select</option>
+		<option value="Low">Low</option>
+		<option value="Moderate">Moderate</option>
+		<option value="High">High</option>
+		<option value="Severe">Severe</option>
+        </select>
+		<span class="error" id="err-alertLevel"></span>
+		
+        <button type = "submit">Submit</button>
+		<div id = "successMsg">Form submitted successfully! All data is valid.</div>
+     </fieldset>
+	 </form>
+	 
+	 <script type = "text/javascript">
+	function setError(fieldId, message, isValidFlag) {
+    document.getElementById("err-" + fieldId).innerHTML = message;
+    if (message != "") {
+        isValidFlag.value = false;
+    }
+}
+
+document.getElementById("heatwaveForm").onsubmit = function (e) {
+
+    e.preventDefault();
+
+    var isValid = { value: true };
+    var nameRegex = /^[A-Za-z ]{3,}$/;
+    var observerName = document.getElementById("observerName").value;
+    if (nameRegex.test(observerName)) {
+        setError("observerName", "", isValid);
+    } else {
+        setError("observerName", "Name must contain only letters/spaces and be at least 3 characters.", isValid);
+    }
+
+    var stationRegex = /^AWS[0-9]{3}$/;
+    var stationId = document.getElementById("stationId").value;
+    if (stationRegex.test(stationId)) {
+        setError("stationId", "", isValid);
+    } else {
+        setError("stationId", "Station ID must follow format AWS001.", isValid);
+    }
+
+    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    var email = document.getElementById("email").value;
+    if (emailRegex.test(email)) {
+        setError("email", "", isValid);
+    } else {
+        setError("email", "Enter a valid email address.", isValid);
+    }
+
+    var mobileRegex = /^[6-9][0-9]{9}$/;
+    var mobile = document.getElementById("mobile").value;
+    if (mobileRegex.test(mobile)) {
+        setError("mobile", "", isValid);
+    } else {
+        setError("mobile", "Enter a valid 10-digit mobile number.", isValid);
+    }
+
+    var location = document.getElementById("location").value;
+    if (location.length > 0) {
+        setError("location", "", isValid);
+    } else {
+        setError("location", "Location cannot be blank.", isValid);
+    }
+
+    var obsDate = document.getElementById("obsDate").value;
+    if (obsDate != "") {
+        setError("obsDate", "", isValid);
+    } else {
+        setError("obsDate", "Observation date is required.", isValid);
+    }
+
+    var maxTempVal = document.getElementById("maxTemp").value;
+    var maxTemp = parseFloat(maxTempVal);
+    if (maxTempVal != "" && !isNaN(maxTemp)) {
+        setError("maxTemp", "", isValid);
+    } else {
+        setError("maxTemp", "Maximum temperature must be a number.", isValid);
+    }
+
+    var humidityVal = document.getElementById("humidity").value;
+    var humidity = parseFloat(humidityVal);
+    if (humidityVal != "" && !isNaN(humidity) && humidity >= 0 && humidity <= 100) {
+        setError("humidity", "", isValid);
+    } else {
+        setError("humidity", "Humidity must be a number between 0 and 100.", isValid);
+    }
+
+    var alertLevel = document.getElementById("alertLevel").value;
+    if (alertLevel != "") {
+        setError("alertLevel", "", isValid);
+    } else {
+        setError("alertLevel", "Please select an alert level.", isValid);
+    }
+	
+    if (isValid.value == true) {
+        document.getElementById("successMsg").style.display = "block";
+    } else {
+        document.getElementById("successMsg").style.display = "none";
+    }
+};
+
+</script>
+
+</body>
+</html>

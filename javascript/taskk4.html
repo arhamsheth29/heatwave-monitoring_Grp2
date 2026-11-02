@@ -1,0 +1,95 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Temperature Readings Analysis</title>
+    <style>
+        body { 
+		font-family: Arial; 
+		background-color: #fdf6f0; 
+		padding: 20px; 
+		}
+        h1 { 
+		color: #b30000; 
+		text-align: center;
+		}
+        .box { 
+		max-width: 500px; 
+		margin: auto;
+		background: #fff;
+		border: 2px solid #b30000;
+        border-radius: 10px; 
+		padding: 15px 25px; 
+		box-shadow: 2px 2px 10px rgba(0,0,0,0.2); 
+		}
+    </style>
+</head>
+<body>
+    <h1>Temperature Readings Analysis</h1>
+    <div class="box" id="output"></div>
+
+    <script type="text/javascript">
+        var temperatureReadings = [34, 36, 38, 39, 41, 40, 37, 35, 39, 42];
+        var heatwaveThreshold = 38;
+        var highHeatLimit = 40;
+
+        function findMin(arr) {
+            var min = arr[0];
+            for (var i = 1; i < arr.length; i++) {
+                if (arr[i] < min) { min = arr[i]; }
+            }
+            return min;
+        }
+
+        function findMax(arr) {
+            var max = arr[0];
+            for (var i = 1; i < arr.length; i++) {
+                if (arr[i] > max) { max = arr[i]; }
+            }
+            return max;
+        }
+
+        function findAverage(arr) {
+            var sum = 0;
+            for (var i = 0; i < arr.length; i++) { sum += arr[i]; }
+            return sum / arr.length;
+        }
+
+        function countAbove(arr, limit) {
+            var count = 0;
+            for (var i = 0; i < arr.length; i++) {
+                if (arr[i] > limit) { count++; }
+            }
+            return count;
+        }
+
+        function countAtLeast(arr, limit) {
+            var count = 0;
+            for (var i = 0; i < arr.length; i++) {
+                if (arr[i] >= limit) { count++; }
+            }
+            return count;
+        }
+
+        function getHighHeatReadings(arr, limit) {
+            var result = [];
+            for (var i = 0; i < arr.length; i++) {
+                if (arr[i] >= limit) { result.push(arr[i]); }
+            }
+            return result;
+        }
+
+        var out = document.getElementById("output");
+        out.innerHTML += "<p><b>Temperature Readings:</b><br>" + temperatureReadings.join(" ") + "</p>";
+        out.innerHTML += "<p><b>Minimum Temperature:</b> " + findMin(temperatureReadings) + "&deg;C</p>";
+        out.innerHTML += "<p><b>Maximum Temperature:</b> " + findMax(temperatureReadings) + "&deg;C</p>";
+        out.innerHTML += "<p><b>Average Temperature:</b> " + findAverage(temperatureReadings).toFixed(1) + "&deg;C</p>";
+        out.innerHTML += "<p><b>Readings above threshold (" + heatwaveThreshold + "&deg;C):</b> " + countAbove(temperatureReadings, heatwaveThreshold) + "</p>";
+        out.innerHTML += "<p><b>Readings &ge; " + highHeatLimit + "&deg;C:</b> " + countAtLeast(temperatureReadings, highHeatLimit) + "</p>";
+        out.innerHTML += "<p><b>Heatwave Condition Readings:</b> " + getHighHeatReadings(temperatureReadings, highHeatLimit).join(", ") + "</p>";
+
+        console.log("Min: " + findMin(temperatureReadings));
+        console.log("Max: " + findMax(temperatureReadings));
+        console.log("Average: " + findAverage(temperatureReadings).toFixed(1));
+    </script>
+</body>
+</html>

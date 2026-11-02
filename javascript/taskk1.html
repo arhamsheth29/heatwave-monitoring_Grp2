@@ -1,0 +1,63 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Heatwave Temperature Analysis</title>
+    <style>
+        body { 
+		font-family: Arial; 
+		background-color: #fdf6f0; 
+		padding: 20px; 
+		}
+        h1 
+		{ color: #b30000; 
+		text-align: center; 
+		}
+        .box { 
+		max-width: 500px; 
+		margin: auto; 
+		background: #fff; 
+		border: 2px solid #b30000;
+        border-radius: 10px; 
+		padding: 15px 25px; 
+		box-shadow: 2px 2px 10px rgba(0,0,0,0.2); }
+    </style>
+</head>
+<body>
+    <h1>Heatwave Temperature Analysis</h1>
+    <div class="box">
+    <script type="text/javascript">
+        var locationName = "Mumbai";          
+        var currentTemp = 39;                 
+        var thresholdTemp = 37;             
+        var humidity = 65;                  
+        var monitoringDate = "18/10/2026";   
+
+        var difference = currentTemp - thresholdTemp;
+        var crossed = currentTemp > thresholdTemp;   // boolean
+        var status;
+
+        if (crossed) {
+            status = "Heatwave Condition Detected";
+        } else {
+            status = "Normal Condition";
+        }
+
+        document.write("<p><b>Monitoring Date:</b> " + monitoringDate + "</p>");
+        document.write("<p><b>Location:</b> " + locationName + "</p>");
+        document.write("<p><b>Current Temperature:</b> " + currentTemp + "&deg;C</p>");
+        document.write("<p><b>Heatwave Threshold:</b> " + thresholdTemp + "&deg;C</p>");
+        document.write("<p><b>Humidity:</b> " + humidity + "%</p>");
+        document.write("<p><b>Temperature Difference:</b> " + difference + "&deg;C</p>");
+        document.write("<p><b>Status:</b> <span style='color:#b30000;'>" + status + "</span></p>");
+
+        console.log("Location: " + locationName);
+        console.log("Current Temperature: " + currentTemp + "°C");
+        console.log("Heatwave Threshold: " + thresholdTemp + "°C");
+        console.log("Temperature Difference: " + difference + "°C");
+        console.log("Status: " + status);
+
+        alert("Location: " + locationName + "\nTemperature Difference: " + difference + "°C\nStatus: " + status);
+    </script>
+    </div>
+</body>
+</html>

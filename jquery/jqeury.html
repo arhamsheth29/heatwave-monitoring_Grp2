@@ -1,0 +1,273 @@
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Climate Monitoring Registration - jQuery Validation</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <style>
+        body { 
+		font-family: Arial; 
+		background: #f4f6f8; 
+		padding: 20px;
+		}
+        fieldset { 
+		max-width: 520px;
+		margin: auto;
+		background: #fff;
+		border-radius: 8px;
+		padding: 20px;
+		}
+        legend { 
+		font-weight: bold;
+		color: #c0392b;
+		}
+        label { 
+		display: block; 
+		margin-top: 10px; 
+		}
+        input[type="text"], input[type="email"], input[type="tel"],
+        input[type="number"], input[type="date"], select 
+		{
+            width: 100%; 
+			padding: 6px;
+			margin-top: 4px;
+			box-sizing: border-box;
+            border: 1px solid #ccc; 
+			border-radius: 4px;
+        }
+        .radio-group label 
+		{ display: inline; 
+		margin-right: 15px;
+		}
+        .radio-group input {
+		margin-right: 4px;
+		}
+        .error { 
+		color: #c0392b;
+		font-size: 13px; 
+		display: block;
+		}
+        .invalid {
+		border: 2px solid #c0392b !important; 
+		background: #fdecea;
+		}
+        .valid {
+		border: 2px solid green !important; 
+		}
+        button { 
+		margin-top: 18px; 
+		margin-right: 8px; 
+		padding: 10px 20px; 
+		border: none;
+        border-radius: 4px;
+		cursor: pointer;
+		color: #fff; 
+		}
+        #submitBtn { 
+		background: #c0392b;
+		}
+        #submitBtn:hover {
+		background: #e74c3c; 
+		}
+        #resetBtn { 
+		background: #777;
+		}
+        #successMsg { 
+		color: green; 
+		font-weight: bold;
+		text-align: center;
+		margin-top: 15px;
+		display: none; 
+		}
+    </style>
+</head>
+<body>
+    <form id="climateForm" novalidate>
+        <fieldset>
+            <legend>Climate Monitoring Registration</legend>
+
+            <label for="observerName">Observer Name</label>
+            <input type="text" id="observerName" name="observerName">
+            <span class="error" id="err-observerName"></span>
+
+            <label for="mobile">Mobile Number</label>
+            <input type="tel" id="mobile" name="mobile">
+            <span class="error" id="err-mobile"></span>
+
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email">
+            <span class="error" id="err-email"></span>
+
+            <label for="location">Location/Area</label>
+            <input type="text" id="location" name="location">
+            <span class="error" id="err-location"></span>
+
+            <label for="stationId">Weather Station ID (e.g. AWS001)</label>
+            <input type="text" id="stationId" name="stationId">
+            <span class="error" id="err-stationId"></span>
+
+            <label for="temperature">Temperature (&deg;C)</label>
+            <input type="number" id="temperature" name="temperature" step="0.1">
+            <span class="error" id="err-temperature"></span>
+
+            <label for="humidity">Relative Humidity (%)</label>
+            <input type="number" id="humidity" name="humidity" step="0.1">
+            <span class="error" id="err-humidity"></span>
+
+            <label for="alertLevel">Heatwave Alert Level</label>
+            <select id="alertLevel" name="alertLevel">
+                <option value="">Select</option>
+                <option value="Low">Low</option>
+                <option value="Moderate">Moderate</option>
+                <option value="High">High</option>
+                <option value="Severe">Severe</option>
+            </select>
+            <span class="error" id="err-alertLevel"></span>
+
+            <label for="monitorDate">Monitoring Date</label>
+            <input type="date" id="monitorDate" name="monitorDate">
+            <span class="error" id="err-monitorDate"></span>
+
+            <label>Notification Preference</label>
+            <div class="radio-group" id="notifyGroup">
+                <label><input type="radio" name="notify" value="SMS">SMS</label>
+                <label><input type="radio" name="notify" value="Email">Email</label>
+                <label><input type="radio" name="notify" value="Both">Both</label>
+            </div>
+            <span class="error" id="err-notify"></span>
+
+            <button type="submit" id="submitBtn">Submit</button>
+            <button type="reset" id="resetBtn">Reset</button>
+            <div id="successMsg">Form submitted successfully! All data is valid.</div>
+        </fieldset>
+    </form>
+
+    <script>
+    $(document).ready(function () {
+
+        function showError(id, message) {
+            $("#err-" + id).text(message);
+            $("#" + id).removeClass("valid").addClass("invalid");
+            return false;
+        }
+
+        function clearError(id) {
+            $("#err-" + id).text("");
+            $("#" + id).removeClass("invalid").addClass("valid");
+            return true;
+        }
+
+        function validateObserverName() {
+            var value = $.trim($("#observerName").val());      
+            if (value === "") { return showError("observerName", "Observer name is required."); }
+            if (!/^[A-Za-z ]+$/.test(value)) { return showError("observerName", "Name can contain only alphabets and spaces."); }
+            return clearError("observerName");
+        }
+
+        function validateLocation() {
+            var value = $.trim($("#location").val());
+            if (value === "") { return showError("location", "Location/Area is required."); }
+            return clearError("location");
+        }
+
+        function validateStationId() {
+            var value = $.trim($("#stationId").val());
+            if (value === "") { return showError("stationId", "Weather Station ID is required."); }
+            if (!/^AWS[0-9]{3}$/.test(value)) { return showError("stationId", "Station ID must follow the format AWS001."); }
+            return clearError("stationId");
+        }
+
+        function validateMobile() {
+            var value = $.trim($("#mobile").val());
+            if (value === "") { return showError("mobile", "Mobile number is required."); }
+            if (!/^[6-9][0-9]{9}$/.test(value)) { return showError("mobile", "Enter a valid 10-digit Indian mobile number."); }
+            return clearError("mobile");
+        }
+
+        function validateEmail() {
+            var value = $.trim($("#email").val());
+            if (value === "") { return showError("email", "Email is required."); }
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) { return showError("email", "Enter a valid email address."); }
+            return clearError("email");
+        }
+
+        function validateTemperature() {
+            var value = $.trim($("#temperature").val());
+            if (value === "") { return showError("temperature", "Temperature is required."); }
+            var temp = parseFloat(value);
+            if (isNaN(temp)) { return showError("temperature", "Temperature must be a number."); }
+            if (temp < -10 || temp > 60) { return showError("temperature", "Temperature must be between -10°C and 60°C."); }
+            return clearError("temperature");
+        }
+
+        function validateHumidity() {
+            var value = $.trim($("#humidity").val());
+            if (value === "") { return showError("humidity", "Humidity is required."); }
+            var hum = parseFloat(value);
+            if (isNaN(hum)) { return showError("humidity", "Humidity must be a number."); }
+            if (hum < 0 || hum > 100) { return showError("humidity", "Humidity must be between 0 and 100."); }
+            return clearError("humidity");
+        }
+
+        function validateAlertLevel() {
+            if ($("#alertLevel").val() === "") { return showError("alertLevel", "Please select an alert level."); }
+            return clearError("alertLevel");
+        }
+
+        function validateDate() {
+            var value = $("#monitorDate").val();
+            if (value === "") { return showError("monitorDate", "Monitoring date is required."); }
+            var entered = new Date(value);
+            var today = new Date();
+            today.setHours(0, 0, 0, 0);
+            if (entered > today) { return showError("monitorDate", "Monitoring date cannot be in the future."); }
+            return clearError("monitorDate");
+        }
+
+        function validateNotify() {
+            if ($("input[name='notify']:checked").length === 0) {
+                $("#err-notify").text("Please select a notification preference.");
+                return false;
+            }
+            $("#err-notify").text("");
+            return true;
+        }
+
+        $("#observerName").on("input", validateObserverName);
+        $("#location").on("input", validateLocation);
+        $("#stationId").on("input", validateStationId);
+        $("#mobile").on("input", validateMobile);
+        $("#email").on("input", validateEmail);
+        $("#temperature").on("input", validateTemperature);
+        $("#humidity").on("input", validateHumidity);
+        $("#alertLevel").on("change", validateAlertLevel);
+        $("#monitorDate").on("change", validateDate);
+        $("input[name='notify']").on("change", validateNotify);
+		
+        $("#climateForm").submit(function (e) {
+            e.preventDefault();    
+
+            var results = [
+                validateObserverName(), validateMobile(), validateEmail(),
+                validateLocation(), validateStationId(), validateTemperature(),
+                validateHumidity(), validateAlertLevel(), validateDate(), validateNotify()
+            ];
+            var allValid = $.inArray(false, results) === -1;
+
+            if (allValid) {
+                $("#successMsg").show();
+            } else {
+                $("#successMsg").hide();
+            }
+        });
+
+        $("#resetBtn").click(function () {
+            $(".error").text("");
+            $("input, select").removeClass("invalid valid");
+            $("#successMsg").hide();
+        });
+    });
+    </script>
+</body>
+</html>

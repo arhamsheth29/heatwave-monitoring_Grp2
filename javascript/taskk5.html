@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Climate Registration Validation</title>
+    <style>
+        body { 
+		font-family: Arial;
+		background: #fdf6f0;
+		padding: 20px; 
+		}
+        fieldset { 
+		max-width: 450px;
+		margin: auto;
+		background: #fff; 
+		border: 2px solid #b30000;
+        border-radius: 10px; padding: 20px;
+		}
+        legend { 
+		font-weight: bold; 
+		color: #b30000; 
+		padding: 0 10px; 
+		}
+        label { 
+		display: block; 
+		margin-top: 10px; 
+		}
+        input {
+		width: 100%; 
+		padding: 6px; 
+		margin-top: 4px; 
+		box-sizing: border-box; 
+		}
+        button { 
+		margin-top: 18px; 
+		padding: 10px 20px; 
+		background: #b30000;
+		color: #fff;
+        border: none;
+		border-radius: 4px;
+		cursor: pointer;
+		}
+        button:hover { 
+		background: #ff4d4d; 
+		}
+        .error {
+		color: #b30000; 
+		font-size: 13px;
+		}
+        #successMsg { color: green; font-weight: bold; text-align: center; margin-top: 15px; display: none; }
+    </style>
+</head>
+<body>
+    <form id="regForm" novalidate>
+        <fieldset>
+            <legend>Climate Monitoring Registration</legend>
+
+            <label for="userName">User Name</label>
+            <input type="text" id="userName" placeholder="Rahul Sharma">
+            <span class="error" id="err-userName"></span>
+
+            <label for="mobile">Mobile Number</label>
+            <input type="tel" id="mobile" placeholder="9876543210">
+            <span class="error" id="err-mobile"></span>
+
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="rahul@gmail.com">
+            <span class="error" id="err-email"></span>
+
+            <label for="location">Location</label>
+            <input type="text" id="location" placeholder="Mumbai">
+            <span class="error" id="err-location"></span>
+
+            <label for="userId">User ID</label>
+            <input type="text" id="userId" placeholder="CLM-1234">
+            <span class="error" id="err-userId"></span>
+
+            <label for="pin">PIN Code</label>
+            <input type="text" id="pin" placeholder="400077">
+            <span class="error" id="err-pin"></span>
+
+            <button type="submit">Validate</button>
+            <div id="successMsg">All details are valid. Registration successful!</div>
+        </fieldset>
+    </form>
+
+    <script type="text/javascript">
+        function checkField(fieldId, regex, errorMessage) {
+            var value = document.getElementById(fieldId).value.trim();
+            if (regex.test(value)) {
+                document.getElementById("err-" + fieldId).innerHTML = "";
+                return true;
+            } else {
+                document.getElementById("err-" + fieldId).innerHTML = errorMessage;
+                return false;
+            }
+        }
+
+        function validateUserName() { return checkField("userName", /^[A-Za-z ]+$/, "Name must contain only alphabets and spaces."); }
+        function validateMobile()   { return checkField("mobile", /^[6-9][0-9]{9}$/, "Mobile number must be exactly 10 digits."); }
+        function validateEmail()    { return checkField("email", /^[^\s@]+@[^\s@]+\.[^\s@]+$/, "Enter a valid email address."); }
+        function validateLocation() { return checkField("location", /^[A-Za-z ]+$/, "Location must contain only alphabets and spaces."); }
+        function validateUserId()   { return checkField("userId", /^CLM-[0-9]{4}$/, "User ID must follow the format CLM-1234."); }
+        function validatePin()      { return checkField("pin", /^[0-9]{6}$/, "PIN code must be exactly 6 digits."); }
+
+        document.getElementById("regForm").onsubmit = function (e) {
+            e.preventDefault();
+
+            var results = [validateUserName(), validateMobile(), validateEmail(),
+                           validateLocation(), validateUserId(), validatePin()];
+            var allValid = results.every(function (r) { return r === true; });
+
+            document.getElementById("successMsg").style.display = allValid ? "block" : "none";
+        };
+    </script>
+</body>
+</html>
